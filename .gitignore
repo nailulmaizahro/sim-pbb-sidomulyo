@@ -1,0 +1,47 @@
+*.log
+.DS_Store
+.env
+.env.backup
+.env.production
+.phpactor.json
+.phpunit.result.cache
+/.fleet
+/.idea
+/.nova
+/.phpunit.cache
+/.vscode
+/.zed
+/auth.json
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
+/vendor
+Homestead.json
+Homestead.yaml
+Thumbs.db
+
+# Laravel generated files
+/bootstrap/cache/*.php
+/storage/framework/cache/data
+/storage/framework/sessions
+/storage/framework/testing
+/storage/framework/views
+/storage/logs
+
+# Uploaded user files - do not commit
+/storage/app/private
+/storage/app/public/*
+!/storage/app/public/.gitignore
+/database/backups/
+/database_schema.sql
+/database_schema.zip
+/database/backups/
+/public/images/qris_dana_bisnis.png
+/public/images/qris_dana_bisnis.png.jpeg
+/Referensi pajak/
+/sample_dhkp.csv
+/scripts/
+/database/seeders/PbbDemoSeeder.php

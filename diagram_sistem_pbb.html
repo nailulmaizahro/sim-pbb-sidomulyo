@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentasi Lengkap Diagram Rekayasa Sistem SIM PBB SIDOMULYO</title>
+    <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Mermaid.js untuk Rendering Diagram -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+    <style>
+        :root {
+            --primary-dark: #133329;
+            --primary-theme: #1b4d3e;
+            --primary-emerald: #10b981;
+            --accent-gold: #c89650;
+            --bg-canvas: #f8fafc;
+            --card-border: #e2e8f0;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-canvas);
+            color: var(--text-main);
+            line-height: 1.65;
+            position: relative;
+        }
+
+        code, pre, .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Header Navbar */
+        .header-top {
+            background: linear-gradient(135deg, #133329 0%, #1b4d3e 100%);
+            border-bottom: 3px solid var(--accent-gold);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Sticky Sidebar Navigation (Daftar Isi) */
+        .sidebar-toc {
+            position: sticky;
+            top: 90px;
+            max-height: calc(100vh - 110px);
+            overflow-y: auto;
+            background: #ffffff;
+            border-radius: 18px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+            padding: 18px;
+        }
+
+        .sidebar-toc .toc-title {
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sidebar-toc .nav-link {
+            color: #334155;
+            font-size: 0.84rem;
+            font-weight: 600;
+            padding: 7px 12px;
+            border-radius: 10px;
+            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .sidebar-toc .nav-link:hover {
+            background: #f1f5f9;
+            color: var(--primary-theme);
+            transform: translateX(3px);
+        }
+
+        .sidebar-toc .nav-link.active {
+            background: var(--primary-theme);
+            color: #ffffff;
+            box-shadow: 0 4px 10px rgba(27, 77, 62, 0.25);
+        }
+
+        /* Kartu Section Dokumentasi */
+        .section-card {
+            background: #ffffff;
+            border-radius: 20px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 8px 30px -5px rgba(0, 0, 0, 0.05);
+            padding: 32px;
+            margin-bottom: 32px;
+            scroll-margin-top: 90px;
+        }
+
+        .section-header {
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+
+        .badge-category {
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 5px 12px;
+            border-radius: 50px;
+        }
+
+        /* Diagram Mermaid Box */
+        .mermaid-box {
+            background: #f8fafc;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            overflow-x: auto;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .mermaid {
+            display: inline-block;
+            text-align: left;
+        }
+
+        /* Callout Boxes */
+        .callout-info {
+            background: #eff6ff;
+            border-left: 4.5px solid #3b82f6;
+            padding: 14px 20px;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 20px;
+        }
+        .callout-success {
+            background: #ecfdf5;
+            border-left: 4.5px solid #10b981;
+            padding: 14px 20px;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 20px;
+        }
+        .callout-warning {
+            background: #fffbeb;
+            border-left: 4.5px solid #f59e0b;
+            padding: 14px 20px;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 20px;
+        }
+
+        /* Tabel Data & Matriks */
+        .table-custom {
+            font-size: 0.86rem;
+        }
+        .table-custom th {
+            background-color: #f1f5f9;
+            color: #1e293b;
+            font-weight: 700;
+            border-bottom: 2px solid #cbd5e1;
+        }
+
+        /* Floating Back to Top Button */
+        .btn-back-to-top {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--primary-theme);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.25s ease;
+            z-index: 1000;
+            text-decoration: none;
+        }
+
+        .btn-back-to-top:hover {
+            background: var(--primary-dark);
+            color: #ffffff;
+            transform: translateY(-3px);
+        }
+
+        /* Media Print: Cetak Rapi Seluruh Halaman Tanpa Sidebar */
+        @media print {
+            .header-top, .sidebar-toc, .btn-back-to-top, .btn-no-print {
+                display: none !important;
+            }
+            body { background: #fff; font-size: 11pt; }
+            .col-lg-9 { width: 100% !important; max-width: 100% !important; flex: 0 0 100% !important; }
+            .section-card {
+                box-shadow: none !important;
+                border: 1px solid #ccc !important;
+                page-break-inside: avoid;
+                margin-bottom: 20px;
+                padding: 16px;
+            }
+            .mermaid-box {
+                background: #fff !important;
+                border: 1px solid #ddd !important;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body data-bs-spy="scroll" data-bs-target="#sidebarMenu" data-bs-offset="100">
+
+    <!-- Header Atas Dokumen Resmi -->
+    <header class="header-top py-3 text-white sticky-top">
+        <div class="container-fluid px-lg-5">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2">
+                <div class="d-flex align-items-center">
+                    <div class="bg-white text-dark rounded-circle d-flex align-items-center justify-content-center me-3 shadow-sm" style="width: 46px; height: 46px;">
+                        <i class="bi bi-diagram-3-fill text-success fs-4"></i>
+                    </div>
+                    <div>
+                        <div class="d-flex align-items-center gap-2">
+                            <h5 class="fw-extrabold mb-0 text-white">DOKUMENTASI LENGKAP REKAYASA PERANGKAT LUNAK</h5>
+                            <span class="badge bg-warning text-dark rounded-pill px-2 py-1 fw-bold" style="font-size: 0.72rem;">SIM PBB 2026</span>
+                        </div>
+                        <small class="text-white-50">
+                            Sistem Informasi Pajak Bumi dan Bangunan (PBB-P2) Pemerintah Kampung Sidomulyo, Kec. Punggur, Kab. Lampung Tengah
+                        </small>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-2 btn-no-print">
+                    <button onclick="window.print()" class="btn btn-sm btn-outline-light rounded-pill px-3">
+                        <i class="bi bi-printer me-1"></i> Cetak Dokumen (PDF)
+                    </button>
+                    <a href="http://localhost:8000" target="_blank" class="btn btn-sm btn-success rounded-pill px-3 fw-bold">
+                        <i class="bi bi-box-arrow-up-right me-1"></i> Buka Aplikasi Web
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid px-lg-5 py-4">
+        <div class="row g-4">
+
+            <!-- SIDEBAR DAFTAR ISI (STICKY NAVIGASI) -->
+            <div class="col-lg-3">
+                <nav class="sidebar-toc" id="sidebarMenu">
+                    <div class="toc-title">
+                        <span><i class="bi bi-list-nested me-1"></i> Daftar Isi Dokumen</span>
+                        <span class="badge bg-light text-secondary border font-mono">1 Berkas</span>
+                    </div>
+                    <div class="nav flex-column">
+                        <a class="nav-link active" href="#sec-overview">
+                            <i class="bi bi-house-door-fill text-muted"></i> 1. Ikhtisar & Profil Sistem
+                        </a>
+                        <a class="nav-link" href="#sec-erd">
+                            <i class="bi bi-database-fill-gear text-primary"></i> 2. ERD (Basis Data 3NF)
+                        </a>
+                        <a class="nav-link" href="#sec-usecase">
+                            <i class="bi bi-person-gear text-success"></i> 3. Use Case Diagram
+                        </a>
+                        <a class="nav-link" href="#sec-activity">
+                            <i class="bi bi-lightning-charge-fill text-warning"></i> 4. Activity Diagram (3 Alur)
+                        </a>
+                        <a class="nav-link" href="#sec-class">
+                            <i class="bi bi-box-seam-fill text-danger"></i> 5. Class & Arsitektur 3-Tier
+                        </a>
+                        <a class="nav-link" href="#sec-sequence">
+                            <i class="bi bi-arrow-left-right text-info"></i> 6. Sequence & State Diagram
+                        </a>
+                        <a class="nav-link" href="#sec-flowchart">
+                            <i class="bi bi-diagram-2-fill" style="color: #8b5cf6;"></i> 7. Flowchart Proses Bisnis
+                        </a>
+                        <a class="nav-link" href="#sec-dictionary">
+                            <i class="bi bi-table text-secondary"></i> 8. Kamus Data & Triggers
+                        </a>
+                    </div>
+
+                    <div class="mt-4 pt-3 border-top small text-muted">
+                        <div class="d-flex align-items-center gap-1 mb-1">
+                            <i class="bi bi-check-circle-fill text-success"></i>
+                            <strong>Format 1 Berkas Utuh</strong>
+                        </div>
+                        <span style="font-size: 0.75rem;">Semua diagram ditampilkan berurutan secara penuh. Dapat langsung dicetak atau dibaca tanpa klik tab.</span>
+                    </div>
+                </nav>
+            </div>
+
+            <!-- KONTEN UTAMA: SELURUH SEKSI DIAGRAM DALAM 1 HALAMAN -->
+            <div class="col-lg-9">
+
+                <!-- =============================================================== -->
+                <!-- SEKSI 1: IKHTISAR & PROFIL SISTEM                               -->
+                <!-- =============================================================== -->
+                <section id="sec-overview" class="section-card">
+                    <div class="section-header d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="badge bg-success bg-opacity-10 text-success badge-category mb-1">BAGIAN 1</span>
+                            <h4 class="fw-bold mb-0">Ikhtisar & Nilai Tambah Sistem SIM PBB SIDOMULYO</h4>
+                        </div>
+                        <span class="badge bg-primary px-3 py-2 rounded-pill">Laravel 11 &bull; MySQL 8 &bull; Midtrans & DANA</span>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <div class="p-3 bg-light rounded-4 border h-100">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="bi bi-geo-alt-fill text-danger fs-4 me-2"></i>
+                                    <h6 class="fw-bold mb-0">Studi Kasus Lapangan</h6>
+                                </div>
+                                <p class="small text-muted mb-0">
+                                    Pemerintah <strong>Kampung Sidomulyo</strong>, Kec. Punggur, Kab. Lampung Tengah. Karakteristik agraris di mana 1 Wajib Pajak umumnya memiliki lebih dari 1 bidang NOP (rumah, sawah, ruko, kebun).
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 bg-light rounded-4 border h-100">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="bi bi-shield-check text-success fs-4 me-2"></i>
+                                    <h6 class="fw-bold mb-0">Pilar Nilai Tambah</h6>
+                                </div>
+                                <ul class="small text-muted ps-3 mb-0">
+                                    <li>Portal Publik Cek NOP + Masking NIK (UU PDP)</li>
+                                    <li>Pembayaran QRIS DANA Bisnis + Alur Verifikasi</li>
+                                    <li>Fleksibilitas Cicilan & Otomasi 4 Triggers SQL</li>
+                                    <li>Parser Impor Massal DHKP CSV & Rekap Dispenda</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 bg-light rounded-4 border h-100">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="bi bi-mortarboard-fill text-warning fs-4 me-2"></i>
+                                    <h6 class="fw-bold mb-0">Konteks Demonstrasi UTS</h6>
+                                </div>
+                                <p class="small text-muted mb-0">
+                                    Seluruh data tagihan demonstrasi disetel ke <strong>Rp 1.000</strong> per ketetapan untuk memfasilitasi pengujian alur pembayaran di ruang kuliah tanpa risiko finansial.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Matriks Perbaikan dari Celah Skripsi Asli -->
+                    <h6 class="fw-bold text-dark mb-2"><i class="bi bi-patch-check-fill text-primary me-1"></i> Matriks Perbaikan Kelemahan Penelitian Sebelumnya:</h6>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-custom align-middle">
+                            <thead>
+                                <tr>
+                                    <th style="width: 5%;">No</th>
+                                    <th style="width: 25%;">Celah Sistem Terdahulu</th>
+                                    <th>Solusi Inovasi yang Diterapkan pada SIM PBB Saat Ini</th>
+                                    <th style="width: 25%;">Manfaat Operasional Lapangan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center font-mono">1</td>
+                                    <td><strong>Warga & NOP Digabung (1NF/2NF Rusak)</strong></td>
+                                    <td>Pemisahan entitas <code>wajib_pajak</code> dan <code>objek_pajak</code> (Relasi 1:N 3NF).</td>
+                                    <td>Nama warga tidak perlu diketik berulang untuk pemilik banyak bidang tanah.</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center font-mono">2</td>
+                                    <td><strong>Tidak Ada Histori Multi-Tahun</strong></td>
+                                    <td>Entitas <code>tagihan_sppt</code> dengan composite unique key (<code>nop</code>, <code>tahun_pajak</code>).</td>
+                                    <td>Dapat melacak riwayat pelunasan dan tunggakan lintas tahun anggaran.</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center font-mono">3</td>
+                                    <td><strong>Tidak Mendukung Cicilan</strong></td>
+                                    <td>Pencatatan <code>total_terbayar</code>, <code>sisa_tagihan</code>, dan status <code>Belum Lunas / Cicilan / Lunas</code>.</td>
+                                    <td>Mengakomodasi petani yang membayar pajak secara bertahap saat panen.</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center font-mono">4</td>
+                                    <td><strong>Konfirmasi Bank Tanpa Verifikasi</strong></td>
+                                    <td>Penerapan <em>Approval Workflow</em>: <code>Menunggu Verifikasi &rarr; Terverifikasi / Ditolak</code>.</td>
+                                    <td>Mencegah manipulasi bukti transfer palsu atau mutasi rekening fiktif.</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center font-mono">5</td>
+                                    <td><strong>Input Manual Ribuan Baris DHKP</strong></td>
+                                    <td>Modul parser impor massal berkas CSV DHKP dan tabel <code>log_import_dhkp</code>.</td>
+                                    <td>Ribuan ketetapan dari Dispenda terunggah otomatis dalam hitungan detik.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- =============================================================== -->
+                <!-- SEKSI 2: ERD (ENTITY RELATIONSHIP DIAGRAM 3NF)                   -->
+                <!-- =============================================================== -->
+                <section id="sec-erd" class="section-card">
+                    <div class="section-header d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="badge bg-primary bg-opacity-10 text-primary badge-category mb-1">BAGIAN 2</span>
+                            <h4 class="fw-bold mb-0">Entity-Relationship Diagram (ERD 3NF)</h4>
+                        </div>
+                        <span class="badge bg-light text-dark border font-mono">Relasi 8 Tabel Basis Data</span>
+                    </div>
+
+                    <div class="callout-success">
+                        <strong class="d-block text-dark"><i class="bi bi-check2-circle text-success me-1"></i> Jaminan Bentuk Normal Ketiga (Third Normal Form - 3NF):</strong>
+                        <span class="small text-muted">
+                            Seluruh kolom non-kunci sepenuhnya bergantung langsung pada Primary Key (bebas dari <em>transitive dependency</em> dan <em>partial dependency</em>). Hubungan antar entitas terikat kuat oleh <em>Foreign Key Constraints</em> dengan aturan cascading yang terjaga.
+                        </span>
+                    </div>
+
+                    <div class="mermaid-box">
+                        <pre class="mermaid">
+erDiagram
+    PROFIL_DESA ||--o{ USERS : "mempekerjakan"
+    USERS ||--o{ LOG_IMPORT_DHKP : "mengunggah file DHKP"
+    WAJIB_PAJAK ||--o{ OBJEK_PAJAK : "memiliki (1-to-N)"
+    OBJEK_PAJAK ||--o{ TAGIHAN_SPPT : "diterbitkan tahunan"
+    TAGIHAN_SPPT ||--o{ TRANSAKSI_PEMBAYARAN : "dicicil / dilunasi"
+    USERS ||--o{ TRANSAKSI_PEMBAYARAN : "memverifikasi"
+    TAGIHAN_SPPT ||--o{ TRANSAKSI_SIMULASI_UTS : "diuji di"
+
+    PROFIL_DESA {
+        int id_desa PK
+        string kode_desa UK
+        string nama_desa
+        string kecamatan
+        string kabupaten
+        string nama_kepala_desa
+        string alamat_kantor
+    }
+
+    USERS {
+        int id_user PK
+        string username UK
+        string password_hash
+        string nama_lengkap
+        string no_hp
+        enum role "admin, petugas, pimpinan"
+        int id_desa FK
+    }
+
+    WAJIB_PAJAK {
+        int id_wp PK
+        string nik UK
+        string nama_wp
+        string alamat_wp
+        string rt_wp
+        string rw_wp
+        string dusun_wp
+        string no_hp
+    }
+
+    OBJEK_PAJAK {
+        string nop PK "18 digit Nomor Objek Pajak"
+        int id_wp FK "ID Wajib Pajak Pemilik"
+        string letak_objek
+        string rt_op
+        string rw_op
+        string dusun_op
+        decimal luas_bumi
+        decimal luas_bangunan
+        decimal njop_bumi
+        decimal njop_bangunan
+    }
+
+    TAGIHAN_SPPT {
+        int id_sppt PK
+        string nop FK
+        int tahun_pajak UK
+        decimal pbb_terhutang
+        decimal skp
+        decimal stp
+        decimal denda
+        decimal total_tagihan
+        decimal total_terbayar
+        decimal sisa_tagihan
+        date tgl_jatuh_tempo
+        enum status_bayar "Belum Lunas, Cicilan, Lunas"
+        string keterangan
+    }
+
+    TRANSAKSI_PEMBAYARAN {
+        int id_bayar PK
+        string kode_transaksi UK
+        int id_sppt FK
+        datetime tgl_bayar
+        decimal jumlah_bayar
+        enum metode_bayar "Tunai, Transfer Bank"
+        string bank_tujuan
+        string bukti_transfer
+        string nama_penyetor
+        enum status_verifikasi "Menunggu Verifikasi, Terverifikasi, Ditolak"
+        int id_petugas_verifikator FK
+        datetime tgl_verifikasi
+    }
+
+    TRANSAKSI_SIMULASI_UTS {
+        int id_simulasi PK
+        string order_id UK
+        int id_sppt FK
+        string nop
+        string nama_pembayar
+        decimal nominal_pembayaran
+        string metode_pembayaran
+        enum status_pembayaran "Pending, Berhasil, Gagal"
+        datetime waktu_transaksi
+    }
+
+    LOG_IMPORT_DHKP {
+        int id_import PK
+        int tahun_pajak
+        string nama_file_asli
+        int total_baris_file
+        int total_sukses
+        int total_gagal
+        int id_user FK
+        timestamp waktu_import
+    }
+                        </pre>
+                    </div>
+
+                    <!-- Kardinalitas Relasi -->
+                    <h6 class="fw-bold text-dark mb-2"><i class="bi bi-link-45deg text-primary me-1"></i> Matriks Integritas Foreign Key & Kardinalitas Relasi:</h6>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-custom align-middle">
+                            <thead>
+                                <tr>
+                                    <th>Parent Table</th>
+                                    <th>Child Table</th>
+                                    <th>Kardinalitas</th>
+                                    <th>Foreign Key Field</th>
+                                    <th>Action Rules (ON UPDATE / DELETE)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>wajib_pajak (id_wp)</code></td>
+                                    <td><code>objek_pajak (id_wp)</code></td>
+                                    <td>1 : N (One-to-Many)</td>
+                                    <td><code>objek_pajak.id_wp</code></td>
+                                    <td>CASCADE / RESTRICT (Data WP tidak bisa dihapus jika memiliki NOP aktif)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>objek_pajak (nop)</code></td>
+                                    <td><code>tagihan_sppt (nop)</code></td>
+                                    <td>1 : N (One-to-Many)</td>
+                                    <td><code>tagihan_sppt.nop</code></td>
+                                    <td>CASCADE / RESTRICT (Objek tanah tidak bisa dihapus jika memiliki riwayat SPPT)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>tagihan_sppt (id_sppt)</code></td>
+                                    <td><code>transaksi_pembayaran (id_sppt)</code></td>
+                                    <td>1 : N (One-to-Many)</td>
+                                    <td><code>transaksi_pembayaran.id_sppt</code></td>
+                                    <td>CASCADE / RESTRICT (SPPT terjaga selama ada catatan transaksi bayar)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>users (id_user)</code></td>
+                                    <td><code>transaksi_pembayaran</code></td>
+                                    <td>1 : N (One-to-Many)</td>
+                                    <td><code>transaksi_pembayaran.id_petugas_verifikator</code></td>
+                                    <td>CASCADE / SET NULL (Jika akun petugas dinonaktifkan, riwayat verifikasi tetap utuh)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- =============================================================== -->
+                <!-- SEKSI 3: USE CASE DIAGRAM                                       -->
+                <!-- =============================================================== -->
+                <section id="sec-usecase" class="section-card">
+                    <div class="section-header d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="badge bg-success bg-opacity-10 text-success badge-category mb-1">BAGIAN 3</span>
+                            <h4 class="fw-bold mb-0">Use Case Diagram & Matriks Skenario Aktor</h4>
+                        </div>
+                        <span class="badge bg-success px-3 py-2 rounded-pill">4 Aktor & 14 Use Case</span>
+                    </div>
+
+                    <div class="mermaid-box">
+                        <pre class="mermaid">
+flowchart LR
+    subgraph AKTOR["Aktor Pengguna"]
+        direction TB
+        Warga(["👤 Warga / Wajib Pajak<br/>(Publik / Mandiri)"])
+        Petugas(["👮 Petugas Pajak Loket<br/>(Bapak Karmin)"])
+        Admin(["👨‍💻 Administrator Utama<br/>(Aparatur IT Desa)"])
+        Kakam(["🏛️ Kepala Kampung<br/>(Pimpinan)"])
+    end
+
+    subgraph SISTEM["BATAS SISTEM: SIM PBB SIDOMULYO"]
+        direction TB
+        UC1(["Cek Tagihan SPPT via NOP"])
+        UC2(["Pembayaran QRIS DANA Bisnis"])
+        UC3(["Unggah Bukti Transfer Bank"])
+        UC4(["Lihat Struk Digital / Polling Status"])
+        
+        UC5(["Input Kasir Pembayaran Tunai Loket"])
+        UC6(["Verifikasi Mutasi Rekening Masuk"])
+        UC7(["Tolak Bukti Transfer Palsu / Buram"])
+        UC8(["Cetak Tanda Bukti / Kuitansi Resmi"])
+
+        UC9(["Kelola Master Wajib Pajak & NOP"])
+        UC10(["Impor Massal File DHKP (CSV)"])
+        UC11(["Terbitkan Tagihan SPPT Manual"])
+        UC12(["Kelola Pengguna Sistem & Profil Desa"])
+
+        UC13(["Monitoring Dashboard Realisasi & KPI Dusun"])
+        UC14(["Cetak Laporan Pertanggungjawaban Dispenda"])
+    end
+
+    %% Relasi Warga
+    Warga --> UC1
+    Warga --> UC2
+    Warga --> UC3
+    Warga --> UC4
+
+    %% Include Relationship
+    UC2 -.->|&lt;&lt;include&gt;&gt;| UC1
+    UC3 -.->|&lt;&lt;include&gt;&gt;| UC1
+    UC4 -.->|&lt;&lt;extend&gt;&gt;| UC2
+
+    %% Relasi Petugas
+    Petugas --> UC5
+    Petugas --> UC6
+    Petugas --> UC7
+    Petugas --> UC8
+    Petugas --> UC13
+    Petugas --> UC14
+
+    %% Relasi Admin
+    Admin --> UC9
+    Admin --> UC10
+    Admin --> UC11
+    Admin --> UC12
+    Admin --> UC5
+    Admin --> UC6
+    Admin --> UC13
+    Admin --> UC14
+
+    %% Relasi Kepala Kampung
+    Kakam --> UC13
+    Kakam --> UC14
+                        </pre>
+                    </div>
+
+                    <!-- Matriks RBAC -->
+                    <h6 class="fw-bold text-dark mb-2"><i class="bi bi-shield-lock-fill text-success me-1"></i> Matriks Hak Akses Peran Pengguna (RBAC Matrix):</h6>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-custom text-center align-middle">
+                            <thead>
+                                <tr>
+                                    <th class="text-start">Modul & Fitur Sistem</th>
+                                    <th>Warga Publik</th>
+                                    <th>Petugas Pajak</th>
+                                    <th>Administrator</th>
+                                    <th>Kepala Kampung</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-start">Cek Tagihan NOP Mandiri (Data Masking)</td>
+                                    <td><span class="badge bg-success">Akses Penuh</span></td>
+                                    <td><span class="badge bg-success">Akses Penuh</span></td>
+                                    <td><span class="badge bg-success">Akses Penuh</span></td>
+                                    <td><span class="badge bg-success">Akses Penuh</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-start">Bayar QRIS DANA Bisnis & Upload Slip</td>
+                                    <td><span class="badge bg-success">Akses Penuh</span></td>
+                                    <td><span class="badge bg-light text-muted border">-</span></td>
+                                    <td><span class="badge bg-light text-muted border">-</span></td>
+                                    <td><span class="badge bg-light text-muted border">-</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-start">Input Pembayaran Tunai Loket Balai Desa</td>
+                                    <td><span class="badge bg-light text-muted border">-</span></td>
+                                    <td><span class="badge bg-success">Akses Penuh</span></td>
+                                    <td><span class="badge bg-success">Akses Penuh</span></td>
+                                    <td><span class="badge bg-light text-muted border">-</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-start">Verifikasi & Penolakan Mutasi Kas</td>
+                                    <td><span class="badge bg-light text-muted border">-</span></td>
+                                    <td><span class="badge bg-success">Akses Penuh</span></td>
+                                    <td><span class="badge bg-success">Akses Penuh</span></td>
+                                    <td><span class="badge bg-light text-muted border">-</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-start">Kelola Master Warga & Objek Pajak (CRUD)</td>
+                                    <td><span class="badge bg-light text-muted border">-</span></td>
+                                    <td><span class="badge bg-info text-dark">Lihat Saja</span></td>
+                                    <td><span class="badge bg-success">Akses Penuh</span></td>
+                                    <td><span class="badge bg-info text-dark">Lihat Saja</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-start">Impor Massal File CSV DHKP Dispenda</td>
+                                    <td><span class="badge bg-light text-muted border">-</span></td>
+                                    <td><span class="badge bg-light text-muted border">-</span></td>
+                                    <td><span class="badge bg-success">Akses Penuh</span></td>
+                                    <td><span class="badge bg-light text-muted border">-</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-start">Monitoring Dashboard Realisasi & KPI Dusun</td>
+                                    <td><span class="badge bg-light text-muted border">-</span></td>
+                                    <td><span class="badge bg-success">Akses Penuh</span></td>
+                                    <td><span class="badge bg-success">Akses Penuh</span></td>
+                                    <td><span class="badge bg-success">Akses Penuh (Eksekutif)</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-start">Cetak Laporan Rekapitulasi Dispenda</td>
+                                    <td><span class="badge bg-light text-muted border">-</span></td>
+                                    <td><span class="badge bg-success">Akses Penuh</span></td>
+                                    <td><span class="badge bg-success">Akses Penuh</span></td>
+                                    <td><span class="badge bg-success">Tanda Tangan Pengesahan</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- =============================================================== -->
+                <!-- SEKSI 4: ACTIVITY DIAGRAM (3 ALUR OPERASIONAL)                  -->
+                <!-- =============================================================== -->
+                <section id="sec-activity" class="section-card">
+                    <div class="section-header d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="badge bg-warning bg-opacity-20 text-dark badge-category mb-1">BAGIAN 4</span>
+                            <h4 class="fw-bold mb-0">Activity Diagram (3 Alur Bisnis Utama)</h4>
+                        </div>
+                        <span class="badge bg-warning text-dark px-3 py-2 rounded-pill">Swimlane Multi-Aktor</span>
+                    </div>
+
+                    <!-- Activity 1 -->
+                    <div class="mb-5">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <h5 class="fw-bold text-dark mb-0">
+                                <i class="bi bi-qr-code text-success me-2"></i>Alur 1: Pembayaran QRIS DANA Bisnis & Verifikasi Admin
+                            </h5>
+                            <span class="badge bg-light text-success border">Real-time Polling & Auto-Redirect</span>
+                        </div>
+                        <p class="small text-muted mb-3">
+                            Menggambarkan interaksi menyeluruh: Warga memindai QRIS Rp 1.000, mengirim bukti transfer, halaman berpindah ke mode tunggu dengan interval polling tiap 3 detik. Admin memeriksa rekening mutasi DANA Bisnis, menyetujui transaksi, trigger database memotong tagihan, dan browser warga secara otomatis beralih ke struk kasir berhasil tanpa reload manual.
+                        </p>
+
+                        <div class="mermaid-box">
+                            <pre class="mermaid">
+sequenceDiagram
+    autonumber
+    actor Warga as 👤 Warga (Wajib Pajak)
+    participant UI as 🌐 Browser / Portal Warga
+    participant App as ⚙️ Backend Laravel (Controller)
+    participant DB as 🗄️ MySQL Database & Triggers
+    actor Admin as 👮 Petugas Loket (Pak Karmin)
+
+    Note over Warga,UI: 1. Pengecekan & Inisiasi
+    Warga->>UI: Buka Portal, masukkan NOP (18 digit)
+    UI->>App: GET /cek-tagihan?nop=...
+    App->>DB: Query ObjekPajak & TagihanSppt
+    DB-->>App: Data NOP, Pemilik, Sisa Tagihan (Rp 1.000)
+    App-->>UI: Tampilkan rincian tagihan (Data Masking NIK)
+    Warga->>UI: Klik "Pembayaran QRIS"
+    UI-->>Warga: Tampilkan Gambar QRIS DANA Bisnis & Form Konfirmasi
+
+    Note over Warga,UI: 2. Pembayaran & Konfirmasi
+    Warga->>Warga: Buka Aplikasi E-Wallet (DANA/BCA/dll), Scan QRIS Rp 1.000
+    Warga->>UI: Upload bukti transfer & input nama penyetor
+    UI->>App: POST /upload-bukti (Form Data & File Slip)
+    App->>App: Validasi input & simpan file bukti ke storage
+    App->>DB: INSERT transaksi_pembayaran (status='Menunggu Verifikasi')
+    DB-->>App: Transaksi tersimpan (Kode: BYR-2026...)
+    App-->>UI: Redirect ke /pembayaran/status/{kode}
+    UI-->>Warga: Tampilkan Halaman Menunggu Verifikasi & Animasi Polling
+
+    Note over UI,App: 3. Real-time Polling Interval (Tiap 3 Detik)
+    loop Setiap 3 Detik
+        UI->>App: GET /pembayaran/check-status/{kode}
+        App->>DB: Cek status_verifikasi transaksi
+        DB-->>App: status='Menunggu Verifikasi', is_success=false
+        App-->>UI: { is_success: false }
+    end
+
+    Note over Admin,DB: 4. Pemeriksaan Mutasi & Approval Petugas
+    Admin->>App: Login & Buka Menu "Kasir Pembayaran" (Tab Pending)
+    App->>DB: Query transaksi status='Menunggu Verifikasi'
+    DB-->>App: Daftar bukti bayar & gambar slip
+    Admin->>Admin: Cek rekening mutasi DANA Bisnis balai desa
+    Admin->>App: POST /pembayaran/{id}/verifikasi (Setujui Transaksi)
+    App->>DB: UPDATE transaksi_pembayaran (status='Terverifikasi')
+    
+    Note over DB: Trigger MySQL "trg_pembayaran_after_update" Aktif:
+    DB->>DB: total_terbayar += 1000, sisa_tagihan = 0, status_bayar = 'Lunas'
+    DB-->>App: Transaksi & SPPT terupdate
+
+    Note over UI,Warga: 5. Otomasi Redirect ke Struk Kasir Berhasil
+    UI->>App: GET /pembayaran/check-status/{kode}
+    App-->>UI: { is_success: true, status: 'Terverifikasi' }
+    UI->>UI: window.location.reload()
+    UI-->>Warga: TAMPILKAN STRUK PEMBAYARAN BERHASIL (Ikon Centang Hijau, LUNAS, Kuitansi)
+                            </pre>
+                        </div>
+                    </div>
+
+                    <!-- Activity 2 -->
+                    <div class="mb-5">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <h5 class="fw-bold text-dark mb-0">
+                                <i class="bi bi-cash-coin text-primary me-2"></i>Alur 2: Pembayaran Tunai Langsung di Loket Balai Desa
+                            </h5>
+                            <span class="badge bg-light text-primary border">Kasir Loket Tradisional</span>
+                        </div>
+                        <div class="mermaid-box">
+                            <pre class="mermaid">
+flowchart TD
+    Start([Mulai: Warga Datang Membawa Lembar SPPT]) --> InputNOP[/Petugas Input NOP pada Sistem Kasir Loket/]
+    InputNOP --> QueryDB[(Query SPPT ke Database)]
+    QueryDB --> CekStatus{Apakah Tagihan Masih Belum Lunas?}
+    
+    CekStatus -- Tidak (Sudah Lunas) --> InfoLunas[Sistem Menampilkan Info: SPPT Sudah Lunas] --> Selesai([Selesai])
+    
+    CekStatus -- Ya (Belum Lunas / Cicilan) --> TampilNominal[Tampilkan Nominal Pokok & Sisa Tagihan]
+    TampilNominal --> TerimaUang[/Warga Menyerahkan Uang Tunai ke Petugas/]
+    TerimaUang --> InputKasir[/Petugas Input Nominal Bayar & Nama Penyetor/]
+    InputKasir --> SimpanBayar[(Simpan Transaksi: status='Terverifikasi', metode='Tunai')]
+    
+    SimpanBayar --> TriggerUpdate[(Trigger DB Update: total_terbayar & sisa_tagihan)]
+    TriggerUpdate --> CekSisa{Sisa Tagihan == 0?}
+    CekSisa -- Ya --> SetLunas[(Set status_bayar = 'Lunas')]
+    CekSisa -- Tidak --> SetCicilan[(Set status_bayar = 'Cicilan')]
+    
+    SetLunas --> CetakKuitansi[/Sistem Mencetak Kuitansi Resmi Kop Balai Desa & Stempel Digital/]
+    SetCicilan --> CetakKuitansi
+    CetakKuitansi --> Serahkan[Petugas Menyerahkan Kuitansi Asli ke Warga] --> Selesai
+                            </pre>
+                        </div>
+                    </div>
+
+                    <!-- Activity 3 -->
+                    <div>
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <h5 class="fw-bold text-dark mb-0">
+                                <i class="bi bi-file-earmark-spreadsheet text-info me-2"></i>Alur 3: Impor Massal DHKP (Spreadsheet CSV dari Dispenda)
+                            </h5>
+                            <span class="badge bg-light text-info border">Bulk Processing & Audit Trail</span>
+                        </div>
+                        <div class="mermaid-box">
+                            <pre class="mermaid">
+flowchart TD
+    A([Awal: Dispenda Kirim File DHKP Tahunan]) --> B[/Admin Unggah File CSV via Form Impor/]
+    B --> C{Validasi Format Berkas & Header Kolom}
+    C -- Format Salah / Rusak --> D[Tampilkan Pesan Error: Format Kolom Tidak Sesuai] --> B
+    
+    C -- Format Valid --> E[Buka Transaksi Database: DB::beginTransaction]
+    E --> F[Inisialisasi Counter: Sukses=0, Gagal=0]
+    F --> G[Loop: Baca Baris per Baris CSV]
+    
+    G --> H{Apakah NOP Sudah Terdaftar di objek_pajak?}
+    H -- Belum Ada --> I[Catat Error: NOP Belum Terdaftar di Master Objek] --> J[Gagal + 1]
+    
+    H -- Terdaftar --> K{Cek Apakah SPPT Tahun Tersebut Sudah Ada?}
+    K -- Belum Ada --> L[INSERT tagihan_sppt Baru] --> M[Sukses + 1]
+    K -- Sudah Ada --> N[UPDATE Nilai Pokok Ketetapan] --> M
+    
+    J --> O{Masih Ada Baris Berikutnya?}
+    M --> O
+    O -- Ya --> G
+    O -- Tidak (Selesai File) --> P[(Catat Hasil ke log_import_dhkp)]
+    P --> Q[DB::commit]
+    Q --> R[/Tampilkan Halaman Rekapitulasi: Jumlah Sukses & Gagal/] --> S([Selesai])
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =============================================================== -->
+                <!-- SEKSI 5: CLASS & ARSITEKTUR DIAGRAM                             -->
+                <!-- =============================================================== -->
+                <section id="sec-class" class="section-card">
+                    <div class="section-header d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="badge bg-danger bg-opacity-10 text-danger badge-category mb-1">BAGIAN 5</span>
+                            <h4 class="fw-bold mb-0">Class Diagram & System Architecture</h4>
+                        </div>
+                        <span class="badge bg-danger px-3 py-2 rounded-pill">Pola Desain MVC Laravel 11</span>
+                    </div>
+
+                    <!-- Class Diagram -->
+                    <div class="mermaid-box mb-4">
+                        <pre class="mermaid">
+classDiagram
+    direction TB
+
+    class WajibPajak {
+        +int id_wp
+        +string nik
+        +string nama_wp
+        +string alamat_wp
+        +string rt_wp
+        +string rw_wp
+        +string dusun_wp
+        +string no_hp
+        +objekPajak() HasMany
+    }
+
+    class ObjekPajak {
+        +string nop
+        +int id_wp
+        +string letak_objek
+        +string rt_op
+        +string rw_op
+        +string dusun_op
+        +decimal luas_bumi
+        +decimal luas_bangunan
+        +decimal njop_bumi
+        +decimal njop_bangunan
+        +wajibPajak() BelongsTo
+        +tagihanSppt() HasMany
+    }
+
+    class TagihanSppt {
+        +int id_sppt
+        +string nop
+        +int tahun_pajak
+        +decimal pbb_terhutang
+        +decimal denda
+        +decimal total_tagihan
+        +decimal total_terbayar
+        +decimal sisa_tagihan
+        +date tgl_jatuh_tempo
+        +string status_bayar
+        +objekPajak() BelongsTo
+        +transaksiPembayaran() HasMany
+        +transaksiSimulasiUts() HasMany
+        +getBadgeStatusAttribute() string
+    }
+
+    class TransaksiPembayaran {
+        +int id_bayar
+        +string kode_transaksi
+        +int id_sppt
+        +datetime tgl_bayar
+        +decimal jumlah_bayar
+        +string metode_bayar
+        +string bank_tujuan
+        +string bukti_transfer
+        +string nama_penyetor
+        +string status_verifikasi
+        +int id_petugas_verifikator
+        +datetime tgl_verifikasi
+        +tagihanSppt() BelongsTo
+        +petugasVerifikator() BelongsTo
+        +generateKodeTransaksi()$ string
+    }
+
+    class User {
+        +int id_user
+        +string username
+        +string password_hash
+        +string nama_lengkap
+        +string role
+        +profilDesa() BelongsTo
+    }
+
+    class PortalWargaController {
+        +index() View
+        +cekTagihan(Request) View
+        +formUpload(int id_sppt) View
+        +simpanUpload(Request) RedirectResponse
+        +statusPembayaran(string kode) View
+        +checkStatusApi(string kode) JsonResponse
+    }
+
+    class PembayaranController {
+        +index(Request) View
+        +create() View
+        +store(Request) RedirectResponse
+        +verifikasi(int id) RedirectResponse
+        +tolak(Request, int id) RedirectResponse
+        +cetakKuitansi(int id) View
+    }
+
+    class DashboardController {
+        +index(Request) View
+    }
+
+    class SpptController {
+        +index(Request) View
+        +create() View
+        +store(Request) RedirectResponse
+        +importForm() View
+        +importProcess(Request) RedirectResponse
+    }
+
+    %% Relationships
+    WajibPajak "1" -- "0..*" ObjekPajak : owns
+    ObjekPajak "1" -- "0..*" TagihanSppt : bills
+    TagihanSppt "1" -- "0..*" TransaksiPembayaran : settles
+    User "1" -- "0..*" TransaksiPembayaran : verifies
+    PortalWargaController ..> TagihanSppt : queries & binds
+    PortalWargaController ..> TransaksiPembayaran : stores
+    PembayaranController ..> TransaksiPembayaran : approves/rejects
+    DashboardController ..> TagihanSppt : aggregates KPI
+    SpptController ..> TagihanSppt : imports/creates
+                        </pre>
+                    </div>
+
+                    <!-- Arsitektur Tiga Lapis -->
+                    <h6 class="fw-bold text-dark mb-2"><i class="bi bi-layers-fill text-danger me-1"></i> Arsitektur Komponen Tiga Lapis (3-Tier Layered Architecture):</h6>
+                    <div class="mermaid-box">
+                        <pre class="mermaid">
+flowchart TB
+    subgraph PRESENTASI["1. Presentation Tier (Antarmuka Pengguna)"]
+        WargaBrowser["Smartphone / PC Warga<br/>(Portal Mandiri, Scan QRIS, Live Polling JS)"]
+        PetugasBrowser["Komputer Kerja Loket & Admin<br/>(Dashboard Realisasi, Kasir, Cetak Kuitansi)"]
+    end
+
+    subgraph APLIKASI["2. Application Tier (Web & Business Logic Engine - Laravel 11)"]
+        Router["Laravel Routing (web.php)"]
+        AuthMiddleware["Middleware: Autentikasi & RBAC Guard"]
+        
+        subgraph Controllers["Controller Modules"]
+            C1[PortalWargaController]
+            C2[PembayaranController]
+            C3[DashboardController]
+            C4[SpptController]
+        end
+
+        subgraph ServiceStorage["Filesystem & Services"]
+            Storage["Public Storage (/storage/bukti_transfer)"]
+            MidtransAPI["Midtrans & DANA Gateway Integration"]
+        end
+    end
+
+    subgraph DATA["3. Data Tier (Persistence & Automated Triggers - MySQL 8)"]
+        DB[(db_pbb_sidomulyo)]
+        Triggers["4 MySQL Triggers:<br/>- trg_sppt_before_insert<br/>- trg_sppt_before_update<br/>- trg_pembayaran_after_insert<br/>- trg_pembayaran_after_update"]
+    end
+
+    PRESENTASI <-->|HTTPS / JSON Polling| Router
+    Router --> AuthMiddleware
+    AuthMiddleware --> Controllers
+    Controllers <--> Storage
+    Controllers <--> MidtransAPI
+    Controllers <-->|Eloquent ORM & Query Builder| DB
+    DB <--> Triggers
+                        </pre>
+                    </div>
+                </section>
+
+                <!-- =============================================================== -->
+                <!-- SEKSI 6: SEQUENCE & STATE MACHINE DIAGRAM                       -->
+                <!-- =============================================================== -->
+                <section id="sec-sequence" class="section-card">
+                    <div class="section-header d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="badge bg-info bg-opacity-20 text-dark badge-category mb-1">BAGIAN 6</span>
+                            <h4 class="fw-bold mb-0">Sequence Diagram & State Machine Diagram</h4>
+                        </div>
+                        <span class="badge bg-info text-dark px-3 py-2 rounded-pill">Interaksi Pesan & Siklus Status</span>
+                    </div>
+
+                    <!-- Sequence Kasir Tunai -->
+                    <div class="mb-5">
+                        <h5 class="fw-bold text-dark border-bottom pb-2">
+                            <i class="bi bi-arrow-left-right text-primary me-2"></i>Sequence Diagram: Kasir Loket Balai Desa & Cetak Kuitansi
+                        </h5>
+                        <div class="mermaid-box mb-3">
+                            <pre class="mermaid">
+sequenceDiagram
+    autonumber
+    actor Petugas as 👮 Petugas Loket (Pak Karmin)
+    participant V as 🖥️ View: pembayaran.create
+    participant C as ⚙️ PembayaranController
+    participant S as 📄 TagihanSppt
+    participant T as 💳 TransaksiPembayaran
+    participant DB as 🗄️ Database Trigger
+
+    Petugas->>V: Buka Form Kasir Loket, pilih NOP Warga
+    V->>C: Request data SPPT yang belum lunas
+    C->>S: find($id_sppt)
+    S-->>C: Data tagihan (sisa_tagihan = Rp 1.000)
+    C-->>V: Render form dengan nominal tagihan
+    Petugas->>V: Masukkan nominal bayar (Rp 1.000) & nama penyetor, klik "Simpan"
+    V->>C: POST /pembayaran (id_sppt, jumlah_bayar, metode='Tunai')
+    
+    C->>T: create(kode_transaksi, status='Terverifikasi', metode='Tunai')
+    T->>DB: INSERT into transaksi_pembayaran
+    
+    Note over DB: Trigger "trg_pembayaran_after_insert" Otomatis Berjalan:
+    DB->>S: UPDATE tagihan_sppt SET total_terbayar=1000, sisa_tagihan=0, status_bayar='Lunas'
+    
+    C-->>V: Redirect ke route('pembayaran.index') + Flash Message Sukses
+    V-->>Petugas: Tampilkan notifikasi lunas & tombol "Cetak Kuitansi"
+    Petugas->>V: Klik tombol "Cetak Kuitansi"
+    V->>C: GET /pembayaran/{id}/kuitansi
+    C-->>Petugas: Render Kuitansi Resmi Kop Balai Desa & Stempel Digital
+                            </pre>
+                        </div>
+                    </div>
+
+                    <!-- State Machine Diagrams -->
+                    <div class="row g-4">
+                        <div class="col-lg-6">
+                            <div class="p-3 bg-light rounded-4 border h-100">
+                                <h6 class="fw-bold text-dark mb-2">
+                                    <i class="bi bi-circle-half text-success me-1"></i>State Machine 1: Siklus Status Tagihan SPPT
+                                </h6>
+                                <p class="small text-muted mb-2">
+                                    Transisi status tagihan dihitung secara otomatis oleh trigger basis data:
+                                </p>
+                                <div class="mermaid-box">
+                                    <pre class="mermaid">
+stateDiagram-v2
+    [*] --> Belum_Lunas : SPPT Diterbitkan (Terbayar = 0)
+    
+    Belum_Lunas --> Cicilan : Bayar Sebagian (0 < Terbayar < Total)
+    Belum_Lunas --> Lunas : Bayar Penuh Sekaligus (Terbayar >= Total)
+    
+    Cicilan --> Cicilan : Tambah Setoran Cicilan Berikutnya
+    Cicilan --> Lunas : Setoran Terakhir Melunasi Sisa Tagihan
+    
+    Lunas --> Cicilan : Jika Transaksi Dibatalkan/Ditolak Petugas
+    Cicilan --> Belum_Lunas : Jika Seluruh Transaksi Dibatalkan
+    
+    Lunas --> [*] : Pajak Terpenuhi & Sah
+                                    </pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="p-3 bg-light rounded-4 border h-100">
+                                <h6 class="fw-bold text-dark mb-2">
+                                    <i class="bi bi-check-all text-primary me-1"></i>State Machine 2: Siklus Status Transaksi Pembayaran
+                                </h6>
+                                <p class="small text-muted mb-2">
+                                    Alur verifikasi perlindungan kas desa dari klaim pembayaran fiktif:
+                                </p>
+                                <div class="mermaid-box">
+                                    <pre class="mermaid">
+stateDiagram-v2
+    [*] --> Menunggu_Verifikasi : Warga Unggah Bukti QRIS / Transfer
+    [*] --> Terverifikasi : Petugas Input Kasir Tunai di Balai Desa
+    
+    Menunggu_Verifikasi --> Terverifikasi : Petugas Cek Mutasi Bank/DANA & Setujui
+    Menunggu_Verifikasi --> Ditolak : Bukti Palsu / Mutasi Tidak Ditemukan
+    
+    Ditolak --> Menunggu_Verifikasi : Warga Mengunggah Ulang Bukti Sah
+    Terverifikasi --> [*] : Saldo Terpotong & Kuitansi Terbit
+                                    </pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =============================================================== -->
+                <!-- SEKSI 7: FLOWCHART OPERASIONAL BISNIS                           -->
+                <!-- =============================================================== -->
+                <section id="sec-flowchart" class="section-card">
+                    <div class="section-header d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="badge bg-purple bg-opacity-10 text-purple badge-category mb-1" style="color: #7c3aed; background: #f5f3ff;">BAGIAN 7</span>
+                            <h4 class="fw-bold mb-0">Flowchart Logika Alur Bisnis</h4>
+                        </div>
+                        <span class="badge bg-dark text-white px-3 py-2 rounded-pill">Flowchart Keputusan</span>
+                    </div>
+
+                    <!-- Flowchart 1: Warga -->
+                    <div class="mb-5">
+                        <h5 class="fw-bold text-dark border-bottom pb-2">
+                            <i class="bi bi-person-check text-success me-2"></i>Flowchart 1: Pengecekan NOP & Pembayaran QRIS oleh Warga
+                        </h5>
+                        <div class="mermaid-box">
+                            <pre class="mermaid">
+flowchart TD
+    Start([Mulai: Warga Akses Portal Web]) --> InputNOP[/Input Nomor Objek Pajak - NOP 18 Digit/]
+    InputNOP --> ValidasiNOP{Apakah NOP Ditemukan di Database?}
+    
+    ValidasiNOP -- Tidak --> AlertNotFound[/Tampilkan Peringatan: NOP Tidak Ditemukan/] --> InputNOP
+    
+    ValidasiNOP -- Ya --> RenderDetail[Tampilkan Rincian Tagihan SPPT & Data Masking UU PDP]
+    RenderDetail --> CekLunas{Status Tagihan Saat Ini?}
+    
+    CekLunas -- Lunas --> TampilLunas[Tampilkan Badge LUNAS & Riwayat Transaksi] --> Selesai([Selesai])
+    
+    CekLunas -- Belum Lunas / Cicilan --> PilihKanal{Pilih Metode Pembayaran?}
+    PilihKanal -- Bayar Tunai --> LoketDesa[Datang ke Balai Kampung Sidomulyo] --> Selesai
+    
+    PilihKanal -- QRIS DANA Bisnis --> TampilQRIS[Buka Halaman Pembayaran QRIS]
+    TampilQRIS --> ScanQR[Warga Scan QRIS Menggunakan Aplikasi E-Wallet / Bank]
+    ScanQR --> InputNominal[Input Nominal Sesuai Tagihan: Rp 1.000]
+    InputNominal --> UploadBukti[/Unggah Foto Bukti Transfer & Nama Penyetor/]
+    UploadBukti --> KirimKonfirmasi[Kirim Konfirmasi ke Backend]
+    
+    KirimKonfirmasi --> SimpanPending[(Simpan Transaksi: status='Menunggu Verifikasi')]
+    SimpanPending --> RedirectStatus[Alihkan ke Halaman Status Pembayaran]
+    
+    RedirectStatus --> PollingLoop{Cek Status Real-time via API Polling Tiap 3 Detik}
+    PollingLoop -- Masih Menunggu --> PollingLoop
+    PollingLoop -- Berhasil Diverifikasi Admin --> TampilSukses[TAMPILKAN STRUK SUKSES KASIR MODERN: Ikon Centang Hijau & LUNAS]
+    TampilSukses --> DownloadKuitansi[/Simpan Struk / Bukti Digital/] --> Selesai
+                            </pre>
+                        </div>
+                    </div>
+
+                    <!-- Flowchart 2 & 3 -->
+                    <div class="row g-4">
+                        <div class="col-lg-6">
+                            <div class="p-3 bg-light rounded-4 border h-100">
+                                <h6 class="fw-bold text-dark mb-2">
+                                    <i class="bi bi-shield-check text-primary me-1"></i>Flowchart 2: Verifikasi Mutasi Kas oleh Petugas
+                                </h6>
+                                <div class="mermaid-box">
+                                    <pre class="mermaid">
+flowchart TD
+    A([Petugas Buka Menu Kasir]) --> B[Lihat Tab 'Menunggu Verifikasi']
+    B --> C{Ada Antrean Pembayaran?}
+    C -- Tidak --> D[Tidak Ada Tugas Verifikasi] --> End1([Selesai])
+    
+    C -- Ada --> E[/Pilih Transaksi & Periksa Foto Bukti Transfer/]
+    E --> F[/Buka Riwayat Mutasi Rekening Bank / DANA Bisnis/]
+    F --> G{Apakah Dana Masuk Sebesar Rp 1.000 Cocok?}
+    
+    G -- Cocok & Valid --> H[Klik Tombol 'Verifikasi']
+    H --> I[(UPDATE status='Terverifikasi')]
+    I --> J[(Trigger DB Potong Sisa Tagihan Otomatis)]
+    J --> K[/Sistem Cetak Kuitansi Lunas/] --> End1
+    
+    G -- Tidak Cocok / Palsu --> L[Klik Tombol 'Tolak Transaksi']
+    L --> M[/Input Alasan Penolakan/]
+    M --> N[(UPDATE status='Ditolak' & alasan_penolakan)]
+    N --> End1
+                                    </pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="p-3 bg-light rounded-4 border h-100">
+                                <h6 class="fw-bold text-dark mb-2">
+                                    <i class="bi bi-file-earmark-text text-success me-1"></i>Flowchart 3: Rekapitulasi & Pelaporan ke Dispenda
+                                </h6>
+                                <div class="mermaid-box">
+                                    <pre class="mermaid">
+flowchart TD
+    P1([Awal: Akhir Bulan Anggaran]) --> P2[/Petugas Buka Menu Laporan/]
+    P2 --> P3[Pilih Jenis Laporan: Realisasi / Tunggakan / Dispenda]
+    P3 --> P4[Pilih Filter Tahun Pajak: 2024 / 2026]
+    
+    P4 --> P5[(Query Aggregasi: SUM total_tagihan, total_terbayar, sisa_tagihan)]
+    P5 --> P6[Hitung Persentase Realisasi Kas per Dusun]
+    
+    P6 --> P7[Render Dokumen Format Resmi Standar Dispenda Lampung Tengah]
+    P7 --> P8{Tindakan Petugas?}
+    
+    P8 -- Cetak Fisik --> P9[/Cetak via Print Stylesheet (Kop & Tanda Tangan Kakam)/]
+    P8 -- Ekspor Data --> P10[/Ekspor Dokumen Pertanggungjawaban/]
+    
+    P9 --> P11[Kepala Kampung Menandatangani Laporan]
+    P10 --> P11
+    P11 --> P12[Setor Kas & Laporan ke Kantor Dispenda Punggur] --> P13([Selesai])
+                                    </pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =============================================================== -->
+                <!-- SEKSI 8: KAMUS DATA & OTOMASI TRIGGERS SQL                      -->
+                <!-- =============================================================== -->
+                <section id="sec-dictionary" class="section-card">
+                    <div class="section-header d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="badge bg-secondary bg-opacity-20 text-dark badge-category mb-1">BAGIAN 8</span>
+                            <h4 class="fw-bold mb-0">Kamus Data & Otomasi Triggers SQL</h4>
+                        </div>
+                        <span class="badge bg-secondary px-3 py-2 rounded-pill">Spesifikasi Fisik & Integritas SQL</span>
+                    </div>
+
+                    <!-- 4 Triggers SQL -->
+                    <div class="mb-4">
+                        <h6 class="fw-bold text-dark mb-2"><i class="bi bi-cpu-fill text-danger me-1"></i> Logika Operasional 4 Database Triggers (Penjaga Integritas ACID):</h6>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="p-3 bg-light rounded-3 border h-100">
+                                    <strong class="text-primary small d-block mb-1">Trigger 1: trg_sppt_before_insert</strong>
+                                    <p class="small text-muted mb-0" style="font-size: 0.8rem;">
+                                        Menghitung otomatis saat SPPT baru diterbitkan:<br>
+                                        <code>total_tagihan = pbb_terhutang + skp + stp + denda</code><br>
+                                        <code>sisa_tagihan = total_tagihan - total_terbayar</code><br>
+                                        Status awal: <code>Belum Lunas</code>.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 bg-light rounded-3 border h-100">
+                                    <strong class="text-primary small d-block mb-1">Trigger 2: trg_sppt_before_update</strong>
+                                    <p class="small text-muted mb-0" style="font-size: 0.8rem;">
+                                        Menghitung ulang total tagihan dan sisa tagihan jika nilai pokok/denda diupdate. Mengubah status secara otomatis menjadi <code>Lunas</code> jika <code>total_terbayar >= total_tagihan</code>, atau <code>Cicilan</code> jika <code>total_terbayar > 0</code>.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 bg-light rounded-3 border h-100">
+                                    <strong class="text-success small d-block mb-1">Trigger 3: trg_pembayaran_after_update</strong>
+                                    <p class="small text-muted mb-0" style="font-size: 0.8rem;">
+                                        Saat status verifikasi transaksi berubah menjadi <code>Terverifikasi</code>, trigger langsung menambah <code>total_terbayar</code> dan memotong <code>sisa_tagihan</code> pada tabel <code>tagihan_sppt</code>.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 bg-light rounded-3 border h-100">
+                                    <strong class="text-success small d-block mb-1">Trigger 4: trg_pembayaran_after_insert</strong>
+                                    <p class="small text-muted mb-0" style="font-size: 0.8rem;">
+                                        Jika pembayaran tunai langsung diinput di loket balai kampung dengan status <code>Terverifikasi</code>, trigger langsung memperbarui saldo tagihan SPPT secara atomik tanpa intervensi manual di controller PHP.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kamus Data Fisik Tabel tagihan_sppt -->
+                    <div class="card mb-4 border">
+                        <div class="card-header bg-light py-2 fw-bold small text-dark">
+                            <i class="bi bi-file-earmark-text text-success me-1"></i> Tabel: <code>tagihan_sppt</code> (Ketetapan PBB per Tahun / DHKP)
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-custom mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Nama Kolom</th>
+                                        <th>Tipe Data</th>
+                                        <th>Kunci</th>
+                                        <th>Nullable</th>
+                                        <th>Keterangan Bisnis</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>id_sppt</code></td>
+                                        <td>INT(11)</td>
+                                        <td><span class="badge bg-primary">PK</span></td>
+                                        <td>No</td>
+                                        <td>Identifier unik ketetapan SPPT (Auto Increment)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>nop</code></td>
+                                        <td>VARCHAR(24)</td>
+                                        <td><span class="badge bg-warning text-dark">FK</span></td>
+                                        <td>No</td>
+                                        <td>18 Digit Nomor Objek Pajak (Relasi ke objek_pajak.nop)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>tahun_pajak</code></td>
+                                        <td>INT(4)</td>
+                                        <td><span class="badge bg-secondary">UK (nop, tahun)</span></td>
+                                        <td>No</td>
+                                        <td>Tahun masa pajak ketetapan (misal: 2024, 2026)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>pbb_terhutang</code></td>
+                                        <td>DECIMAL(15,2)</td>
+                                        <td>-</td>
+                                        <td>No</td>
+                                        <td>Nilai pokok ketetapan PBB (Nominal demo: Rp 1.000)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>total_tagihan</code></td>
+                                        <td>DECIMAL(15,2)</td>
+                                        <td>-</td>
+                                        <td>No</td>
+                                        <td>Total kewajiban (pokok + skp + stp + denda)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>total_terbayar</code></td>
+                                        <td>DECIMAL(15,2)</td>
+                                        <td>-</td>
+                                        <td>No</td>
+                                        <td>Akumulasi uang yang telah disetorkan warga</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>sisa_tagihan</code></td>
+                                        <td>DECIMAL(15,2)</td>
+                                        <td>-</td>
+                                        <td>No</td>
+                                        <td>Sisa piutang pajak yang wajib dilunasi</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>status_bayar</code></td>
+                                        <td>ENUM('Belum Lunas','Cicilan','Lunas')</td>
+                                        <td>INDEX</td>
+                                        <td>No</td>
+                                        <td>Status pemenuhan kewajiban pajak</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Kamus Data Fisik Tabel transaksi_pembayaran -->
+                    <div class="card border">
+                        <div class="card-header bg-light py-2 fw-bold small text-dark">
+                            <i class="bi bi-credit-card text-primary me-1"></i> Tabel: <code>transaksi_pembayaran</code> (Jurnal Setoran Kas & Transfer)
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-custom mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Nama Kolom</th>
+                                        <th>Tipe Data</th>
+                                        <th>Kunci</th>
+                                        <th>Nullable</th>
+                                        <th>Keterangan Bisnis</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>id_bayar</code></td>
+                                        <td>INT(11)</td>
+                                        <td><span class="badge bg-primary">PK</span></td>
+                                        <td>No</td>
+                                        <td>Identifier unik transaksi pembayaran</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>kode_transaksi</code></td>
+                                        <td>VARCHAR(35)</td>
+                                        <td><span class="badge bg-info text-dark">UK</span></td>
+                                        <td>No</td>
+                                        <td>Kode referensi transaksi (contoh: BYR-20261112-XXXXX)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>id_sppt</code></td>
+                                        <td>INT(11)</td>
+                                        <td><span class="badge bg-warning text-dark">FK</span></td>
+                                        <td>No</td>
+                                        <td>Ketetapan SPPT yang dibayar (Relasi ke tagihan_sppt)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>jumlah_bayar</code></td>
+                                        <td>DECIMAL(15,2)</td>
+                                        <td>-</td>
+                                        <td>No</td>
+                                        <td>Nominal uang setoran (Nominal demo: Rp 1.000)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>metode_bayar</code></td>
+                                        <td>ENUM('Tunai','Transfer Bank')</td>
+                                        <td>INDEX</td>
+                                        <td>No</td>
+                                        <td>Kanal pembayaran: Tunai di loket atau Transfer/QRIS</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>bank_tujuan</code></td>
+                                        <td>VARCHAR(50)</td>
+                                        <td>-</td>
+                                        <td>Yes</td>
+                                        <td>Nama kanal penerima (misal: QRIS DANA Bisnis / Bank Lampung)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>bukti_transfer</code></td>
+                                        <td>VARCHAR(255)</td>
+                                        <td>-</td>
+                                        <td>Yes</td>
+                                        <td>Path berkas foto bukti struk/mutasi di public storage</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>status_verifikasi</code></td>
+                                        <td>ENUM('Menunggu Verifikasi','Terverifikasi','Ditolak')</td>
+                                        <td>INDEX</td>
+                                        <td>No</td>
+                                        <td>Status alur persetujuan validasi mutasi oleh petugas</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>id_petugas_verifikator</code></td>
+                                        <td>INT(11)</td>
+                                        <td><span class="badge bg-warning text-dark">FK</span></td>
+                                        <td>Yes</td>
+                                        <td>ID petugas balai kampung yang melakukan verifikasi</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Tombol Mengambang Kembali ke Atas -->
+    <a href="#sec-overview" class="btn-back-to-top" title="Kembali ke Bagian Atas">
+        <i class="bi bi-chevron-up"></i>
+    </a>
+
+    <!-- Footer Dokumen -->
+    <footer class="py-4 text-center text-muted small border-top bg-white mt-5">
+        <div class="container">
+            <p class="mb-1 fw-bold text-dark">&copy; 2026 SIM PBB Kampung Sidomulyo, Kecamatan Punggur, Kabupaten Lampung Tengah.</p>
+            <p class="mb-0 text-muted" style="font-size: 0.75rem;">
+                Dokumen Spesifikasi Rekayasa Perangkat Lunak (SRS / SDD) Terpadu dalam 1 Berkas Utuh untuk Demonstrasi Akademik Ujian Tengah Semester (UTS).
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Inisialisasi Otomatis Mermaid.js -->
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: { useMaxWidth: true, curve: 'basis', htmlLabels: true },
+            sequence: { useMaxWidth: true, showSequenceNumbers: true },
+            er: { useMaxWidth: true }
+        });
+    </script>
+</body>
+</html>
