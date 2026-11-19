@@ -45,3 +45,4 @@ Thumbs.db
 /sample_dhkp.csv
 /scripts/
 /database/seeders/PbbDemoSeeder.php
+/struktur_database.sql
